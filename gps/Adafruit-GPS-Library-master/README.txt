@@ -1,5 +1,9 @@
+This is the library that the Baton MCU will use to obtain geo location from the Adafruit GPS module. The complete code for the baton will be publised in another directory of this repository.
+
 This is the Adafruit GPS library - the ultimate GPS library
 for the ultimate GPS module!
+
+
 
 Tested and works great with the Adafruit Ultimate GPS module
 using MTK33x9 chipset
