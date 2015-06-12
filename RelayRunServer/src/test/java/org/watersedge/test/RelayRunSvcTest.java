@@ -1,6 +1,7 @@
 package org.watersedge.test;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,22 +12,50 @@ import org.watersedge.relayrun.RelayRunSvcApi;
 import org.watersedge.relayrun.repository.Baton;
 import org.watersedge.relayrun.repository.Marker;
 import org.watersedge.relayrun.repository.Runner;
+import org.watersedge.test.client.SecuredRestBuilder;
 
 import retrofit.RestAdapter;
 import retrofit.RestAdapter.LogLevel;
 
 
+import retrofit.client.ApacheClient;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RelayRunSvcTest {
 	
-	private final String TEST_URL = "http://localhost:8080";
-
+	private final String USERNAME = "admin";
+	private final String PASSWORD = "pass";
+	private final String CLIENT_ID = "mobile";
+	private final String READ_ONLY_CLIENT_ID = "mobileReader";
 	
-	private RelayRunSvcApi relayRunSvcApi = new RestAdapter.Builder()
-		.setEndpoint(TEST_URL)
-		.setLogLevel(LogLevel.FULL).build()
+//	private final String TEST_URL = "http://localhost:8080";
+//
+//	
+//	private RelayRunSvcApi relayRunSvcApi = new RestAdapter.Builder()
+//		.setEndpoint(TEST_URL)
+//		.setLogLevel(LogLevel.FULL).build()
+//		.create(RelayRunSvcApi.class);
+	
+	// Secure version
+	private final String TEST_URL_SECURE = "https://localhost:8443";
+	
+	private RelayRunSvcApi relayRunSvcApi = new SecuredRestBuilder()
+		.setLoginEndpoint(TEST_URL_SECURE + RelayRunSvcApi.TOKEN_PATH)
+		.setUsername(USERNAME)
+		.setPassword(PASSWORD)
+		.setClientId(CLIENT_ID)
+		.setClient(new ApacheClient(UnsafeHttpsClient.createUnsafeClient()))
+		.setEndpoint(TEST_URL_SECURE).setLogLevel(LogLevel.FULL).build()
+		.create(RelayRunSvcApi.class);
+	
+	private RelayRunSvcApi invalidSymptomManagementService = new SecuredRestBuilder()
+		.setLoginEndpoint(TEST_URL_SECURE + RelayRunSvcApi.TOKEN_PATH)
+		.setUsername(UUID.randomUUID().toString())
+		.setPassword(UUID.randomUUID().toString())
+		.setClientId(UUID.randomUUID().toString())
+		.setClient(new ApacheClient(UnsafeHttpsClient.createUnsafeClient()))
+		.setEndpoint(TEST_URL_SECURE).setLogLevel(LogLevel.FULL).build()
 		.create(RelayRunSvcApi.class);
 	
 	private Runner createRunner(String name, String color, String location){

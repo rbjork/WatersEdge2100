@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
@@ -19,9 +20,11 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.watersedge.relayrun.Application;
+import org.watersedge.relayrun.auth.OAuth2SecurityConfiguration;
 import org.watersedge.relayrun.repository.BatonRepository;
 import org.watersedge.relayrun.repository.MarkerRepository;
 import org.watersedge.relayrun.repository.RunnerRepository;
+
 
 @EnableAutoConfiguration
 
@@ -32,6 +35,8 @@ import org.watersedge.relayrun.repository.RunnerRepository;
 @Configuration
 
 @ComponentScan
+
+@Import(OAuth2SecurityConfiguration.class)
 public class Application extends RepositoryRestMvcConfiguration {
 
 //	@Value("${spring.datasource.driverClassName}")

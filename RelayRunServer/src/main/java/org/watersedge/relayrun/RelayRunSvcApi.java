@@ -14,7 +14,7 @@ import retrofit.http.POST;
 import retrofit.http.Path;
 
 public interface RelayRunSvcApi {
-	
+	public static final String TOKEN_PATH = "/oauth/token";
 	public static final String RUNNER_SVC_PATH = "/runner";
 	public static final String MARKER_SVC_PATH = "/marker";
 	public static final String BATON_SVC_PATH = "/baton";

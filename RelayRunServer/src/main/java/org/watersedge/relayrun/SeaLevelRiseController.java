@@ -7,8 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.*; 
+import java.util.*; 
+import java.lang.*; 
+import org.postgis.*; 
+
+import org.postgis.*;
+
+@Controller
 public class SeaLevelRiseController {
 	
+	java.sql.Connection conn; 
+	
+
 	// Three approaches for data storage and querying for PostGIS: 
 	//	1) Use raster image file of slr to get point water depth at assumed SLR
 	//	2) Having used raster2pgsql to convert slr tiff to table data in PostGIS, query database with lat and long
