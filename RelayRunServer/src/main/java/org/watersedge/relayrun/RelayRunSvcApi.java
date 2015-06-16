@@ -61,15 +61,15 @@ public interface RelayRunSvcApi {
 	
 	// Geo Data Requests 
 	@GET(GEO_SVC_PATH + "/waterdepth/{logitude}/{latitude}")
-	public int getWaterDepthAt(@Path("logitude") long longitude, @Path("latitude") long latitude);
+	public int getWaterDepthAt(@Path("logitude") double longitude, @Path("latitude") double latitude);
 	
 	@GET(GEO_SVC_PATH + "/elevation/{logitude}/{latitude}")
-	public int getElevationAt(@Path("logitude") long longitude, @Path("latitude") long latitude);
+	public int getElevationAt(@Path("logitude") double longitude, @Path("latitude") double latitude);
 	
 	@GET(GEO_SVC_PATH + "/waterdepth/direction100/{logitude}/{latitude}/{compass}")
-	public int getWaterDeptForDirectionAt100Meters(@Path("logitude") long longitude, @Path("latitude") long latitude, @Path("compass") float compass);
+	public String getWaterDeptForDirectionAt100Meters(@Path("logitude") double longitude, @Path("latitude") double latitude, @Path("compass") float compass);
 	
 	@GET(GEO_SVC_PATH + "/waterdepth/direction/{logitude}/{latitude}/{compass}")
-	public int getDistanceToWatersEdgeForDirection(@Path("logitude") long longitude, @Path("latitude") long latitude, @Path("compass") float compass);
+	public String getDistanceToWatersEdgeForDirection(@Path("logitude") double longitude, @Path("latitude") double latitude, @Path("compass") float compass);
 	
 }

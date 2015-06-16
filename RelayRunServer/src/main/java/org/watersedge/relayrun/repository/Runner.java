@@ -16,6 +16,7 @@ public class Runner {
 	private String name;
 	private String color;
 	private String startLocation;
+	private String username;
 	
 	public long getId() {
 		return id;
@@ -40,6 +41,12 @@ public class Runner {
 	}
 	public void setStartLocation(String startLocation) {
 		this.startLocation = startLocation;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 }

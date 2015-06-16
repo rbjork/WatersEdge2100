@@ -24,6 +24,8 @@ import org.watersedge.relayrun.auth.OAuth2SecurityConfiguration;
 import org.watersedge.relayrun.repository.BatonRepository;
 import org.watersedge.relayrun.repository.MarkerRepository;
 import org.watersedge.relayrun.repository.RunnerRepository;
+import org.watersedge.relayrun.repository.SLRandElevationData;
+import org.watersedge.relayrun.repository.SLRandElevationInterface;
 
 
 @EnableAutoConfiguration
@@ -39,64 +41,72 @@ import org.watersedge.relayrun.repository.RunnerRepository;
 @Import(OAuth2SecurityConfiguration.class)
 public class Application extends RepositoryRestMvcConfiguration {
 
-//	@Value("${spring.datasource.driverClassName}")
-//    private String databaseDriverClassName;
-//
-//    @Value("${spring.datasource.url}")
-//    private String datasourceUrl;
-//
-//    @Value("${spring.datasource.username}")
-//    private String databaseUsername;
-//
-//    @Value("${spring.datasource.password}")
-//    private String databasePassword;
-//
-//    @Bean
-//    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
-//        return new PropertySourcesPlaceholderConfigurer();
-//    }
-//
-//    @Bean
-//    public DataSource dataSource() {
-//
-//        org.apache.tomcat.jdbc.pool.DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource();
-//        ds.setDriverClassName(databaseDriverClassName);
-//        ds.setUrl(datasourceUrl);
-//        ds.setUsername(databaseUsername);
-//        ds.setPassword(databasePassword);
-//
-//        return ds;
-//    }
-//
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-//            JpaVendorAdapter jpaVendorAdapter) {
-//        LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-//        lef.setDataSource(dataSource);
-//        lef.setJpaVendorAdapter(jpaVendorAdapter);
-//        lef.setPackagesToScan("test.builder");
-//
-//        return lef;
-//    }
-//
-//    @Bean
-//    public JpaVendorAdapter jpaVendorAdapter() {
-//        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-//        hibernateJpaVendorAdapter.setShowSql(true);
-//        hibernateJpaVendorAdapter.setGenerateDdl(false);
-//        hibernateJpaVendorAdapter.setDatabase(Database.POSTGRESQL);
-//        return hibernateJpaVendorAdapter;
-//    }
-//
-//    @Bean
-//    public PlatformTransactionManager transactionManager() {
-//        return new JpaTransactionManager();
-//    }
+	@Value("${spring.datasource.driverClassName}")
+    private String databaseDriverClassName;
 
-	
+    @Value("${spring.datasource.url}")
+    private String datasourceUrl;
+
+    @Value("${spring.datasource.username}")
+    private String databaseUsername;
+
+    @Value("${spring.datasource.password}")
+    private String databasePassword;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Bean
+    public DataSource dataSource() {
+  //  	org.postgresql.ds.PGPoolingDataSource ds = new org.postgresql.ds.PGPoolingDataSource();
+    	
+        org.apache.tomcat.jdbc.pool.DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource();
+        ds.setDriverClassName(databaseDriverClassName);
+        ds.setUrl(datasourceUrl);
+        ds.setUsername(databaseUsername);
+        ds.setPassword(databasePassword);
+
+        return ds;
+    }
+    
+    @Bean
+	public SLRandElevationInterface videoRepository(){
+		DataSource ds = dataSource();
+		return new SLRandElevationData(ds);
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SpringApplication.run(Application.class, args);
 	}
+	
+
+	//
+//  @Bean
+//  public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
+//          JpaVendorAdapter jpaVendorAdapter) {
+//      LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
+//      lef.setDataSource(dataSource);
+//      lef.setJpaVendorAdapter(jpaVendorAdapter);
+//      lef.setPackagesToScan("test.builder");
+//
+//      return lef;
+//  }
+//
+//  @Bean
+//  public JpaVendorAdapter jpaVendorAdapter() {
+//      HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+//      hibernateJpaVendorAdapter.setShowSql(true);
+//      hibernateJpaVendorAdapter.setGenerateDdl(false);
+//      hibernateJpaVendorAdapter.setDatabase(Database.POSTGRESQL);
+//      return hibernateJpaVendorAdapter;
+//  }
+//
+//  @Bean
+//  public PlatformTransactionManager transactionManager() {
+//      return new JpaTransactionManager();
+//  }
 
 }
